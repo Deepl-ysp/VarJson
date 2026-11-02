@@ -1,0 +1,95 @@
+/**
+ * 综合正确路径测试入口
+ * 覆盖：字面量、数组/索引、嵌套对象、同作用域顺序引用、
+ *       跨作用域 &、! 顶级作用域、跨模块别名、整作用域/整模块拷贝、
+ *       多进制数字、科学计数、分隔符、字符串转义、负数、布尔、null
+ */
+import "./dep1.vjson" as t1;
+
+xxx = {
+  a = 1,
+  b = 2,
+  nested = { c = 3 }
+};
+
+tops = {
+  tops1 = 123,
+  tops2 = 456,
+  scr = [15.25, 885, "855s", true, null, -42],
+  rcs = {
+    s = "ss",
+    vs = "bks",
+    deep = { x = 1, y = [10, 20] }
+  },
+  // 同作用域：后者引用前者
+  base = 10,
+  derived = base,
+  // 多进制 / 科学计数 / 分隔符（字面量）
+  hex = 0xFF,
+  bin = 0b1010,
+  oct = 0o17,
+  sci = 1.5e-3,
+  under = 1_000_000,
+  comma = 1,000,000,
+  // 字符串转义
+  esc = "line1\nline2\t\"quoted\"\\slash",
+  uni = "A\u0041",
+  // 负数
+  neg = -3.14
+};
+
+var = {
+  // —— 字面量直出 ——
+  lit_num = 42,
+  lit_str = "hello",
+  lit_bool = true,
+  lit_null = null,
+  lit_arr = [1, 2, 3],
+  lit_obj = { k = "v" },
+
+  // —— 同作用域顺序引用 ——
+  m = 20,
+  n = m,
+
+  // —— 跨作用域 &tops ——
+  tso = &tops.tops1,
+  cst = &tops.scr[0],
+  idx2 = &tops.scr[2],
+  ggc = &tops.rcs.vs,
+  deep_y0 = &tops.rcs.deep.y[0],
+  derived_from_tops = &tops.derived,
+  hex_v = &tops.hex,
+  bin_v = &tops.bin,
+  oct_v = &tops.oct,
+  sci_v = &tops.sci,
+  under_v = &tops.under,
+  comma_v = &tops.comma,
+  esc_v = &tops.esc,
+  uni_v = &tops.uni,
+  neg_v = &tops.neg,
+
+  // —— 自定义作用域：&!xxx（顶级）vs &xxx（当作 tops 字段，此处 tops 无 xxx 字段故用 !）——
+  xa = &!xxx.a,
+  xb = &!xxx.b,
+  xc = &!xxx.nested.c,
+
+  // —— 跨模块 ——
+  // dep1.tops.rcs 无 kvs；kvs 在 dep1.tops 顶层（来自 dep2）
+  rj = &t1.rcs.rj,
+  t1_kvs = &t1.kvs,
+  // dep1 已把 dep2.!other.rj 收进 tops.other_rj
+  other_rj = &t1.other_rj,
+
+  // —— 整作用域 / 嵌套结构拷贝 ——
+  gvs = {
+    scr = &tops.rcs,
+    from_t1 = &t1.rcs.rj
+  },
+  // 整 tops 快照（深拷贝）
+  tops_snap = &tops,
+  // 整模块快照
+  t1_snap = &t1,
+
+  // —— 数组字面量里嵌引用 ——
+  mixed = [&tops.tops1, &!xxx.a, null, "end"]
+};

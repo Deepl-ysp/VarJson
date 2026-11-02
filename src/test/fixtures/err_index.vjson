@@ -1,0 +1,8 @@
+tops = {
+  arr = [1, 2]
+};
+
+var = {
+  // 越界 > Index Error
+  x = &tops.arr[5]
+};

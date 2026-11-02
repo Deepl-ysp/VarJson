@@ -1,0 +1,6 @@
+// import 缺少 as alias > Syntax Error
+import "./dep2.vjson";
+
+var = {
+  x = 1
+};

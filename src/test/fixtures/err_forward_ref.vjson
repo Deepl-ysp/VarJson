@@ -1,0 +1,9 @@
+// 前向引用 > Reference Error
+tops = {
+  b = a,
+  a = 1
+};
+
+var = {
+  x = &tops.b
+};

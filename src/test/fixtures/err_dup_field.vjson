@@ -1,0 +1,9 @@
+// 同作用域重复字段 > Syntax Error
+tops = {
+  a = 1,
+  a = 2
+};
+
+var = {
+  x = 1
+};

@@ -1,0 +1,4 @@
+// ! 后作用域不存在 > Syntax Error（解析阶段）
+var = {
+  x = &!nonexistent.a
+};

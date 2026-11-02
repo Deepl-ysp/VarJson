@@ -1,0 +1,9 @@
+// 跨作用域未用 & > Reference Error
+tops = {
+  tops1 = 100
+};
+
+var = {
+  // 裸名只查当前作用域；tops1 在 tops > Cross-scope requires '&'
+  bad = tops1
+};

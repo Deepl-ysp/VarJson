@@ -1,0 +1,20 @@
+import "./dep2.vjson" as t2;
+
+tops = {
+  tops1 = 123,
+  tops2 = 456,
+  scr = [15.25, 885, "855s"],
+  rcs = {
+    s = "ss",
+    vs = "bks",
+    rj = "rj1538"
+  },
+  // cross-module ref via alias
+  kvs = &t2.rcs.kvs,
+  // whole-scope from dep (tops field path)
+  other_rj = &t2.!other.rj
+};
+
+var = {
+  from_dep1 = "dep1-var"
+};

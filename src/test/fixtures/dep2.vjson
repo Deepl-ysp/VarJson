@@ -1,0 +1,22 @@
+// leaf module — no imports
+tops = {
+  tops1 = 123,
+  tops2 = 456,
+  scr = [15.25, 885, "855s"],
+  rcs = {
+    s = "ss",
+    vs = "bks",
+    rj = "rj1538",
+    kvs = 5
+  }
+};
+
+other = {
+  rj = "from_other",
+  n = 99
+};
+
+var = {
+  // dependency var should NOT appear in entry output
+  secret = "dep2-var-should-not-leak"
+};

@@ -1,0 +1,9 @@
+// 字段级自引用循环 > Cycle Error
+// （顺序求值下 a=b,b=a 会先变成前向引用错误；自引用/回边才能触发 cycleSet）
+tops = {
+  a = &tops.a
+};
+
+var = {
+  x = &tops.a
+};
